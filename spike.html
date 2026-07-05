@@ -31,8 +31,9 @@
   .hero-inner .eyebrow{color:var(--copper);font-size:12px;letter-spacing:.34em;text-transform:uppercase;font-weight:500}
   .hero-inner h1{font-family:"David Libre",serif;font-weight:700;font-size:clamp(64px,17vw,150px);line-height:1.02;direction:rtl;color:var(--foam);text-shadow:0 2px 40px rgba(0,0,0,.55)}
   .hero-inner .sub{margin-top:10px;color:#c9bba9;font-size:15.5px;text-shadow:0 1px 18px rgba(0,0,0,.6)}
-  .hint{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:var(--muted);font-size:13px;letter-spacing:.12em;text-transform:uppercase;animation:bob 2.2s ease-in-out infinite}
-  @keyframes bob{0%,100%{transform:translateY(0);opacity:.75}50%{transform:translateY(7px);opacity:1}}
+  .hint{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:var(--muted);font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+  .hint span{display:inline-block;animation:bob 2.2s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
   .fade{transition:opacity .5s ease}
 
   .quote-inner p{font-family:Piazzolla,serif;font-style:italic;font-size:clamp(22px,5.5vw,34px);line-height:1.35;max-width:22ch;color:var(--foam);text-shadow:0 2px 34px rgba(0,0,0,.6)}
@@ -76,7 +77,7 @@
         <h1>שָׁחוֹר</h1>
         <div class="sub">крути вниз — кофе льётся, пока ты листаешь</div>
       </div>
-      <div class="hint" id="hint">Скролль ↓</div>
+      <div class="hint" id="hint"><span>Скролль ↓</span></div>
     </div>
   </section>
 
