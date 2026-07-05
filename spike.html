@@ -65,7 +65,7 @@
 </head>
 <body>
 
-<img id="poster" src="frames/poster.jpg" alt="Кофе наливается в тёмную кружку" fetchpriority="high">
+<img id="poster" src="frames/poster.jpg" alt="Пустая тёмная кружка на кофейных зёрнах" fetchpriority="high">
 <canvas id="film" aria-hidden="true"></canvas>
 
 <main>
@@ -75,7 +75,7 @@
       <div class="hero-inner fade" id="heroTxt">
         <div class="eyebrow">Jaffa · יפו · спайк-прототип</div>
         <h1>שָׁחוֹר</h1>
-        <div class="sub">крути вниз — кофе льётся, пока ты листаешь</div>
+        <div class="sub">пустая кружка ждёт. крути вниз — и кофе пойдёт</div>
       </div>
       <div class="hint" id="hint"><span>Скролль ↓</span></div>
     </div>
@@ -126,7 +126,7 @@
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var poster = document.getElementById('poster');
   var canvas = document.getElementById('film');
-  if (reduced) { canvas.remove(); return; } // постер остаётся статичным фоном
+  if (reduced) { canvas.remove(); return; } // постер (пустая кружка) остаётся статичным фоном
 
   var isMobile = matchMedia('(max-width: 768px)').matches;
   var N = isMobile ? 54 : 90;
@@ -134,7 +134,13 @@
   var ctx = canvas.getContext('2d');
   var frames = new Array(N);
   var loadedCount = 0;
-  var cur = 0, target = 0, started = false;
+  var cur = 0, target = 0, posterHidden = false;
+
+  // кадр «пустая кружка» — держим его в hero, пока налив не начался
+  var emptyImg = new Image();
+  var emptyReady = false;
+  emptyImg.onload = function(){ emptyReady = true; };
+  emptyImg.src = DIR + 'empty.webp';
 
   var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
   function resize(){
@@ -155,7 +161,6 @@
         im.onload = im.onerror = function(){
           frames[i] = im.complete && im.naturalWidth ? im : null;
           loadedCount++; inFlight--;
-          if (!started && loadedCount >= 12) { started = true; poster.classList.add('hide'); }
           pump();
         };
         im.src = DIR + 'f_' + pad(i) + '.webp';
@@ -185,22 +190,50 @@
   var heroTxt = document.getElementById('heroTxt');
   var hint = document.getElementById('hint');
   var quoteTxt = document.getElementById('quoteTxt');
+  var heroEl = document.querySelector('.chapter');
+
+  function clamp01(v){ return v < 0 ? 0 : v > 1 ? 1 : v; }
 
   function loop(){
-    var max = document.documentElement.scrollHeight - innerHeight;
-    var p = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
-    target = p * (N - 1);
-    cur += (target - cur) * 0.16;
-    if (Math.abs(target - cur) < 0.02) cur = target;
-    var im = nearestLoaded(Math.round(cur));
-    if (im) drawCover(im);
+    var ih = innerHeight;
+    // sticky-фаза hero: [0 .. heroEl.height - ih] — тут плёнка полностью видна
+    var heroScroll = heroEl.offsetHeight - ih;
+    // пороги налива в пикселях, привязаны к hero (устойчиво к остальному контенту)
+    var pourStart = ih * 0.82;                 // ~первый экран — читаем заголовок, кружка пустая
+    var pourEnd   = Math.max(pourStart + 1, heroScroll * 0.96); // налив кончается перед светлым листом
+    var y = scrollY;
 
-    // текстовые появления/уходы
-    var fadeOut = Math.min(1, p / 0.10);            // hero-текст тает к 10% прокрутки
-    heroTxt.style.opacity = String(1 - fadeOut);
-    hint.style.opacity = String(1 - Math.min(1, p / 0.05));
-    var q = (p - 0.62) / 0.10;                      // цитата проявляется на 62–72%
-    quoteTxt.style.opacity = String(Math.min(1, Math.max(0, q)));
+    // прогресс наливания 0..1 внутри окна [pourStart, pourEnd]
+    var pour = clamp01((y - pourStart) / (pourEnd - pourStart));
+
+    // до начала налива — рисуем пустую кружку; иначе скраб кадров
+    if (pour <= 0 && emptyReady) {
+      drawCover(emptyImg);
+      cur = target = 0;
+    } else {
+      target = pour * (N - 1);
+      cur += (target - cur) * 0.16;
+      if (Math.abs(target - cur) < 0.02) cur = target;
+      var im = nearestLoaded(Math.round(cur));
+      if (im) drawCover(im);
+      else if (emptyReady) drawCover(emptyImg);
+    }
+
+    // снимаем постер, как только есть чем рисовать (пустая кружка готова)
+    if (!posterHidden && (emptyReady || loadedCount >= 8)) {
+      posterHidden = true; poster.classList.add('hide');
+    }
+
+    // hero-текст держится, пока кружка пустая, и тает прямо перед наливом
+    var heroFade = clamp01((y - (pourStart - ih * 0.35)) / (ih * 0.35));
+    heroTxt.style.opacity = String(1 - heroFade);
+    hint.style.opacity = String(1 - clamp01(y / (ih * 0.5)));
+
+    // цитата — в «Главе 2» (после светлого листа), по глобальному прогрессу
+    var max = document.documentElement.scrollHeight - ih;
+    var gp = max > 0 ? clamp01(y / max) : 0;
+    var q = (gp - 0.64) / 0.10;
+    quoteTxt.style.opacity = String(clamp01(q));
 
     requestAnimationFrame(loop);
   }
