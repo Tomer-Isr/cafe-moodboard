@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Кафе в Яффо — референсы, раунд 1</title>
+<style>
+  :root{
+    --bg:#141210; --surface:#1e1a17; --line:#37302a;
+    --text:#ece5da; --muted:#a2968a; --accent:#c7f04a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;padding-bottom:80px}
+  .wrap{max-width:840px;margin:0 auto;padding:0 16px}
+  header{padding:48px 0 8px}
+  h1{font-size:clamp(26px,6vw,40px);line-height:1.15;letter-spacing:-.01em}
+  h1 em{color:var(--accent);font-style:normal}
+  .lead{color:var(--muted);margin-top:14px;max-width:60ch}
+  .howto{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:26px 0 8px;font-size:15px}
+  .howto b{color:var(--accent)}
+  section{margin-top:56px}
+  .dirnum{color:var(--accent);font-size:13px;letter-spacing:.18em;text-transform:uppercase}
+  h2{font-size:clamp(21px,4.5vw,28px);margin-top:6px;line-height:1.25}
+  .dirdesc{color:var(--muted);margin-top:8px;max-width:62ch}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:22px}
+  .card img{width:100%;display:block;border-bottom:1px solid var(--line)}
+  .card .meta{padding:14px 16px 18px}
+  .site{font-weight:700;font-size:17px}
+  .site a{color:var(--text);text-decoration:none;border-bottom:1px dashed var(--muted)}
+  .site span{color:var(--muted);font-weight:400;font-size:14px}
+  .take{margin-top:8px;font-size:15px}
+  .take b{color:var(--accent);font-weight:600}
+  .warn{color:var(--muted);font-size:14px;margin-top:6px}
+  footer{margin-top:64px}
+  .final{background:var(--surface);border:1px solid var(--accent);border-radius:14px;padding:20px}
+  .final h3{font-size:19px;margin-bottom:10px}
+  .final ol{padding-inline-start:22px}
+  .final li{margin:7px 0}
+  .tag{display:inline-block;background:#2a251f;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:2px 10px;font-size:12.5px;margin-inline-end:6px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Кафе в Яффо — <em>референсы, раунд 1</em></h1>
+  <p class="lead">Шесть направлений, каждое — живые сайты реальных кафе и кофеен. Это про <b>вайб</b> (цвет, типографика, настроение, движение), не про копирование 1:1 — наш будет трёхъязычный, RTL и со своей структурой.</p>
+  <div class="howto">
+    <b>Как смотреть:</b> листай сверху вниз. По каждому направлению достаточно короткой реакции: «да», «нет» или «да, но…». Если что-то цепляет в конкретном сайте — можно открыть его вживую по ссылке. Направления можно смешивать — об этом внизу.
+  </div>
+</header>
+
+<!-- 1 -->
+<section>
+  <div class="dirnum">Направление 01</div>
+  <h2>Тёмный эспрессо — кино и люкс</h2>
+  <p class="dirdesc">Тёмная база, кинематографичные фото процесса, минимум текста. Дорогое спокойствие: сайт ощущается как вечер в хорошем месте.</p>
+
+  <div class="card">
+    <img src="img/barnine-hero.jpg" alt="Bar Nine — hero" loading="lazy">
+    <img src="img/barnine-scroll.jpg" alt="Bar Nine — секция ниже" loading="lazy">
+    <div class="meta">
+      <div class="site"><a href="https://barninela.com" target="_blank" rel="noopener">Bar Nine</a> <span>· Лос-Анджелес</span></div>
+      <p class="take"><b>Что берём:</b> тёмный фон + крупные цитаты вместо самовосхваления («Holy Shit. This is Next Level.» — Michelin Star Chef). Дерзко, но чужими словами — сильный приём доверия.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="img/goodboybob-hero.jpg" alt="goodboybob — hero" loading="lazy">
+    <div class="meta">
+      <div class="site"><a href="https://goodboybob.com" target="_blank" rel="noopener">goodboybob</a> <span>· Санта-Моника</span></div>
+      <p class="take"><b>Что берём:</b> фуллскрин-макро налива кофе как hero — одна картинка продаёт вкус лучше абзаца текста.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="img/onyx-hero.jpg" alt="Onyx — hero" loading="lazy">
+    <img src="img/onyx-scroll.jpg" alt="Onyx — интерьерная секция" loading="lazy">
+    <div class="meta">
+      <div class="site"><a href="https://onyxcoffeelab.com" target="_blank" rel="noopener">Onyx Coffee Lab</a> <span>· эталон отрасли, США</span></div>
+      <p class="take"><b>Что берём:</b> чёрный + элегантный serif, подача «мы — лаборатория вкуса», интерьерные кадры как полноэкранные главы.</p>
+      <p class="warn">Риск направления: слишком «взросло-люксово» для молодёжи Яффо, если не разбавить.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section>
+  <div class="dirnum">Направление 02</div>
+  <h2>Тьма + живой акцент</h2>
+  <p class="dirdesc">Тёмная база, но с ярким цветовым «криком» и ритмом «тёмный hero → светлые секции». Это направление ближе всего к варианту «эспрессо + кислота» из нашего брифа — здесь видно, как оно работает вживую.</p>
+
+  <div class="card">
+    <img src="img/okana-hero.jpg" alt="Okana — hero" loading="lazy">
+    <img src="img/okana-scroll.jpg" alt="Okana — светлая секция" loading="lazy">
+    <div class="meta">
+      <div class="site"><a href="https://getokana.com" target="_blank" rel="noopener">Ōkana</a> <span>· кофейный бренд</span></div>
+      <p class="take"><b>Что берём:</b> тёмно-зелёная глубина + курсивный serif-акцент в заголовке («<i>No Crash.</i>»); после тёмного hero — светлые секции с карточками, страница «дышит». У них акцент спокойный — наш можно сделать кислотным (лайм/электрик) для молодёжной энергии.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section>
+  <div class="dirnum">Направление 03</div>
+  <h2>Плакат — высокий контраст, огромная типографика</h2>
+  <p class="dirdesc">Текст и есть дизайн: разрядка, жирные гарнитуры, чёрное на белом или один кричащий цвет. Смотрится современно и очень дёшево не бывает.</p>
+
+  <div class="card">
+    <img src="img/sbreserve-hero.jpg" alt="Starbucks Reserve — hero" loading="lazy">
+    <div class="meta">
+      <div class="site"><a href="https://www.starbucksreserve.com" target="_blank" rel="noopener">Starbucks Reserve</a></div>
+      <p class="take"><b>Что берём:</b> заголовок в разрядку на всю ширину как арт-объект. На иврите крупная плакатная типографика выглядит особенно мощно — этим почти никто не пользуется.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="img/intelligentsia-scroll.jpg" alt="Intelligentsia — красный блок" loading="lazy">
+    <div class="meta">
+      <div class="site"><a href="https://www.intelligentsia.com" target="_blank" rel="noopener">Intelligentsia</a> <span>· Чикаго</span></div>
+      <p class="take"><b>Что берём:</b> целая секция заливается одним смелым цветом (красный блок подписки) — сильный ритмический удар посреди страницы.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section>
+  <div class="dirnum">Направление 04</div>
+  <h2>Молодёжный кислотный — fun и дерзость</h2>
+  <p class="dirdesc">Яркие цвета, юмор, стикеры, рукописность. Кофе как культура и тусовка, а не церемония. Такое молодёжь шэрит в сторис.</p>
+
+  <div class="card">
+    <img src="img/couplet-hero.jpg" alt="Couplet — hero" loading="lazy">
+    <img src="img/couplet-scroll.jpg" alt="Couplet — пресс-полоса" loading="lazy">
+    <div class="meta">
+      <div class="site"><a href="https://coupletcoffee.com" target="_blank" rel="noopener">Couplet Coffee</a> <span>· США</span></div>
+      <p class="take"><b>Что берём:</b> «making coffee fun &amp; approachable» — энергия розового/кислотно-зелёного, полоса логотипов прессы на кислотном фоне, живые фото людей вместо стоковых чашек.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="img/darkarts-hero.jpg" alt="Dark Arts — hero" loading="lazy">
+    <img src="img/darkarts-scroll.jpg" alt="Dark Arts — мерч" loading="lazy">
+    <div class="meta">
+      <div class="site"><a href="https://www.darkartscoffee.co.uk" target="_blank" rel="noopener">Dark Arts Coffee</a> <span>· Лондон</span></div>
+      <p class="take"><b>Что берём:</b> рукописные иллюстрации + гранж + мерч-культура (кепки, юмор). Анти-люкс: бренд как банда, а не бутик. Хорошо стыкуется с уличным характером Яффо.</p>
+      <p class="warn">Риск направления: если переборщить — потеряем «стильно на высоком уровне».</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section>
+  <div class="dirnum">Направление 05</div>
+  <h2>Editorial-ресторан — светлый, но не крем</h2>
+  <p class="dirdesc">Белая/бумажная база, литературный serif, фото с характером. Спокойная альтернатива, если тёмное не зайдёт.</p>
+
+  <div class="card">
+    <img src="img/lula-hero.jpg" alt="Lula Cafe — hero" loading="lazy">
+    <img src="img/lula-scroll.jpg" alt="Lula Cafe — секция с цитатой" loading="lazy">
+    <div class="meta">
+      <div class="site"><a href="https://www.lulacafe.com" target="_blank" rel="noopener">Lula Cafe</a> <span>· Чикаго</span></div>
+      <p class="take"><b>Что берём:</b> serif-вордмарк, фото-плитки с красноватым тоном, цитата из мемуаров Патти Смит прямо на главной — место с интеллектом и историей.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section>
+  <div class="dirnum">Направление 06</div>
+  <h2>Сайт-пространство — механика-вау</h2>
+  <p class="dirdesc">Сайт как место, по которому «ходишь». Самое близкое к твоему запросу «движущаяся анимация, крутая механика».</p>
+
+  <div class="card">
+    <img src="img/caffedesign-hero.jpg" alt="Caffè Design — 3D пространство" loading="lazy">
+    <img src="img/caffedesign-scroll.jpg" alt="Caffè Design — интерьер" loading="lazy">
+    <div class="meta">
+      <div class="site"><a href="https://www.caffe.design" target="_blank" rel="noopener">Caffè Design</a> <span>· Awwwards SOTD</span></div>
+      <p class="take"><b>Что берём:</b> идею «сайт = пространство кафе». Полный 3D нам не нужен (дорого и тяжело), но её масштабируемая версия — <b>scroll-сцены</b>: скроллишь, и кадры/зоны кафе сменяются, как будто идёшь по залу. Реализуемо и эффектно.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="final">
+    <h3>Что мне нужно от тебя</h3>
+    <ol>
+      <li>По каждому направлению 01–06: <b>«да» / «нет» / «да, но…»</b>.</li>
+      <li>Если внутри направления зацепил конкретный сайт или деталь (цвет, шрифт, приём) — назови её.</li>
+      <li>Направления смешиваются. Например: база 02 (тьма + кислота) + типографика 03 (плакат) + щепотка 04 (дерзость) + механика 06 (scroll-сцены) = целостный концепт.</li>
+    </ol>
+    <span class="tag">дальше: концепт под выбранный вайб</span>
+    <span class="tag">потом: макеты</span>
+    <span class="tag">потом: код</span>
+  </div>
+</footer>
+
+</div>
+</body>
+</html>
