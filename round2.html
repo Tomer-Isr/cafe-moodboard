@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Кафе в Яффо — концепт, раунд 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=David+Libre:wght@400;500;700&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Piazzolla:ital,opsz,wght@0,8..30,400..900;1,8..30,400..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Rubik:wght@300..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#141210; --surface:#1e1a17; --line:#37302a;
+    --text:#ece5da; --muted:#a2968a; --green:#c7f04a;
+    /* палитра концепта */
+    --espresso:#131010; --dark-surface:#1d1815; --foam:#efe7db; --dark-line:#352d26;
+    --paper:#faf8f4; --ink:#191512; --light-line:#e4ded2;
+    --copper:#c2502f; --wine:#b3382c;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;padding-bottom:80px}
+  .wrap{max-width:840px;margin:0 auto;padding:0 16px}
+  header{padding:48px 0 8px}
+  h1{font-size:clamp(26px,6vw,40px);line-height:1.15}
+  h1 em{color:var(--green);font-style:normal}
+  .lead{color:var(--muted);margin-top:14px;max-width:62ch}
+  .dirnum{color:var(--green);font-size:13px;letter-spacing:.18em;text-transform:uppercase}
+  section{margin-top:56px}
+  h2{font-size:clamp(21px,4.5vw,28px);margin-top:6px;line-height:1.25}
+  .desc{color:var(--muted);margin-top:8px;max-width:62ch}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:22px}
+  .pad{padding:16px}
+  /* палитра */
+  .swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:18px}
+  .sw{border-radius:12px;border:1px solid var(--line);overflow:hidden}
+  .sw .c{height:84px}
+  .sw .t{padding:8px 10px;font-size:12.5px;background:var(--surface)}
+  .sw .t b{display:block;font-size:13.5px;color:var(--text)}
+  .sw .t span{color:var(--muted)}
+  /* превью-блоки */
+  .hero-demo{background:var(--espresso);padding:64px 22px 58px;text-align:center;position:relative;overflow:hidden}
+  .hero-demo .eyebrow{color:var(--copper);font-family:Rubik;font-weight:500;font-size:12px;letter-spacing:.34em;text-transform:uppercase}
+  .hero-demo .he{font-family:"David Libre",serif;font-weight:700;font-size:clamp(56px,15vw,110px);line-height:1.05;color:var(--foam);direction:rtl;margin-top:12px}
+  .hero-demo .sub{color:#b8ab9c;font-family:Rubik;font-weight:300;margin-top:10px;font-size:15.5px}
+  .hero-demo .cta{display:inline-block;margin-top:26px;border:1px solid var(--copper);color:var(--foam);font-family:Rubik;font-size:14px;padding:11px 26px;border-radius:999px}
+  .paper-demo{background:var(--paper);color:var(--ink);padding:42px 22px}
+  .paper-demo .kicker{color:var(--copper);font-family:Rubik;font-weight:600;font-size:12px;letter-spacing:.22em;text-transform:uppercase}
+  .paper-demo h3{font-family:Piazzolla,serif;font-weight:600;font-size:clamp(24px,6vw,34px);margin-top:8px;line-height:1.2}
+  .paper-demo .row{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--light-line);padding:13px 0;font-family:Rubik;font-size:15px}
+  .paper-demo .row .price{font-variant-numeric:tabular-nums;color:var(--copper);font-weight:600;white-space:nowrap}
+  .paper-demo .row .nm b{font-weight:600}
+  .paper-demo .row .nm span{display:block;color:#7a6d5f;font-size:13px;font-weight:300}
+  .quote-demo{background:var(--dark-surface);padding:52px 22px;text-align:center}
+  .quote-demo p{font-family:Piazzolla,serif;font-style:italic;font-size:clamp(20px,5vw,28px);line-height:1.4;color:var(--foam);max-width:24ch;margin:0 auto}
+  .quote-demo cite{display:block;margin-top:14px;color:var(--copper);font-family:Rubik;font-style:normal;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase}
+  /* типографика */
+  .type-sample{border-top:1px solid var(--line);padding:18px 16px}
+  .type-sample:first-child{border-top:0}
+  .type-sample .label{font-size:12.5px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+  .type-sample .he-d{font-family:"David Libre",serif;font-weight:700;font-size:34px;direction:rtl;margin-top:6px;line-height:1.25}
+  .type-sample .he-f{font-family:"Frank Ruhl Libre",serif;font-weight:700;font-size:34px;direction:rtl;margin-top:6px;line-height:1.25}
+  .type-sample .ru-p{font-family:Piazzolla,serif;font-weight:600;font-size:30px;margin-top:6px;line-height:1.3}
+  .type-sample .ru-pf{font-family:"Playfair Display",serif;font-weight:600;font-size:30px;margin-top:6px;line-height:1.3}
+  .type-sample .body{font-family:Rubik;font-weight:300;font-size:16px;margin-top:8px;color:var(--text)}
+  .pill{display:inline-block;background:#2a251f;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:2px 10px;font-size:12.5px;margin:8px 6px 0 0}
+  .pill.rec{border-color:var(--green);color:var(--green)}
+  /* структура */
+  .map{margin-top:18px;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .band{padding:14px 16px;font-size:14.5px;display:flex;gap:10px;align-items:baseline}
+  .band .n{font-family:Rubik;font-size:11.5px;letter-spacing:.14em;opacity:.65;min-width:2.2em}
+  .band.d{background:var(--espresso);color:var(--foam)}
+  .band.l{background:var(--paper);color:var(--ink)}
+  .band b{font-weight:600}
+  .band span{opacity:.72;font-size:13px}
+  /* имена */
+  .names{display:grid;gap:12px;margin-top:18px}
+  .name{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+  .name .he{font-family:"David Libre",serif;font-weight:700;font-size:34px;direction:rtl;color:var(--foam)}
+  .name .lat{color:var(--muted);font-size:13.5px;margin-top:2px}
+  .name p{font-size:14.5px;margin-top:8px;color:var(--text)}
+  .final{background:var(--surface);border:1px solid var(--green);border-radius:14px;padding:20px;margin-top:64px}
+  .final h3{font-size:19px;margin-bottom:10px}
+  .final ol{padding-inline-start:22px}
+  .final li{margin:7px 0}
+  a{color:var(--green)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="dirnum">Раунд 2 · концепт</div>
+  <h1>«Тёмная плёнка, светлая бумага» — <em>концепт кафе в Яффо</em></h1>
+  <p class="lead">Синтез выбранных тобой направлений 01 + 05. Идея: сайт устроен как <b>чередование глав</b>. Тёмные главы — кино: полноэкранные кадры, эспрессо, вечер, цитаты. Светлые главы — бумага: меню, заказ, бронь — литературный serif, воздух, аккуратные линейки. Скроллишь — и страница «дышит» между тьмой и светом. Молодёжная энергия — в тоне текстов, живых фото и движении, не в кислотных цветах.</p>
+</header>
+
+<section>
+  <div class="dirnum">01 · Вкус вживую</div>
+  <h2>Мини-превью трёх «глав»</h2>
+  <p class="desc">Это не макет — это проба палитры и шрифтов на реальных элементах: тёмный hero, светлое меню, тёмная интерлюдия-цитата.</p>
+
+  <div class="card">
+    <div class="hero-demo">
+      <div class="eyebrow">Jaffa · יפו</div>
+      <div class="he">שָׁחוֹר</div>
+      <div class="sub">קפה, מאפים ולילות ביפו · с 07:00 до полуночи</div>
+      <span class="cta">שולחן בוואטסאפ ←</span>
+    </div>
+    <div class="paper-demo">
+      <div class="kicker">Меню · תפריט</div>
+      <h3>Утро в Яффо</h3>
+      <div class="row"><div class="nm"><b>Эспрессо / אספרסו</b><span>дабл, зерно локальной обжарки</span></div><div class="price">₪ 10</div></div>
+      <div class="row"><div class="nm"><b>Флэт уайт / פלאט וייט</b><span>двойная закладка, молоко 3%</span></div><div class="price">₪ 16</div></div>
+      <div class="row"><div class="nm"><b>Круассан с за՚атаром</b><span>печём в 07:00 и в 15:00</span></div><div class="price">₪ 14</div></div>
+    </div>
+    <div class="quote-demo">
+      <p>«Приходишь за кофе — остаёшься до темноты»</p>
+      <cite>гость · Google Reviews</cite>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="dirnum">02 · Цвет</div>
+  <h2>Палитра</h2>
+  <p class="desc">Тёмная база — эспрессо, почти чёрный с тёплым подтоном (не синий «дарк-мод»). Светлая база — бумага, белая с лёгким теплом (это <b>не крем</b> — сравни с кремовыми панелями визитки). Один акцент на выбор.</p>
+  <div class="swatches">
+    <div class="sw"><div class="c" style="background:#131010"></div><div class="t"><b>Эспрессо #131010</b><span>тёмный фон глав</span></div></div>
+    <div class="sw"><div class="c" style="background:#1d1815"></div><div class="t"><b>Тёмная поверхность #1D1815</b><span>карточки на тёмном</span></div></div>
+    <div class="sw"><div class="c" style="background:#efe7db"></div><div class="t"><b>Пенка #EFE7DB</b><span>текст на тёмном (только текст)</span></div></div>
+    <div class="sw"><div class="c" style="background:#faf8f4"></div><div class="t"><b>Бумага #FAF8F4</b><span>фон светлых глав</span></div></div>
+    <div class="sw"><div class="c" style="background:#191512"></div><div class="t"><b>Чернила #191512</b><span>текст на светлом</span></div></div>
+    <div class="sw"><div class="c" style="background:#c2502f"></div><div class="t"><b>Медь #C2502F — вариант А</b><span>акцент: CTA, цены, детали</span></div></div>
+    <div class="sw"><div class="c" style="background:#b3382c"></div><div class="t"><b>Вино #B3382C — вариант Б</b><span>акцент: глубже и строже</span></div></div>
+  </div>
+  <p class="desc" style="margin-top:14px">Акцент один на весь сайт. Медь — теплее и ближе к кофе; вино — ближе к красноватым фото Lula. В превью выше — медь.</p>
+</section>
+
+<section>
+  <div class="dirnum">03 · Шрифт</div>
+  <h2>Типографика — две пары на выбор</h2>
+  <p class="desc">Заголовки — литературный serif (дух Lula/Onyx), текст и UI — Rubik (один шрифт покрывает иврит + русский + латиницу). Обе пары уже показаны живьём:</p>
+
+  <div class="card">
+    <div class="type-sample">
+      <div class="label">Пара 1 — рекомендую · заголовки David Libre (HE) + Piazzolla (RU/EN)</div>
+      <div class="he-d">קפה שחור ביפו</div>
+      <div class="ru-p">Кофе после полуночи</div>
+      <div class="body">Body — Rubik Light: печём круассаны дважды в день, эспрессо ₪10, открыто до 00:00. אנחנו ביפו, ליד השעון.</div>
+      <span class="pill rec">свежая, не встречалась в наших демо</span>
+    </div>
+    <div class="type-sample">
+      <div class="label">Пара 2 — заголовки Frank Ruhl Libre (HE) + Playfair Display (RU/EN)</div>
+      <div class="he-f">קפה שחור ביפו</div>
+      <div class="ru-pf">Кофе после полуночи</div>
+      <div class="body">Body — тот же Rubik Light. Пара выразительная, но Frank Ruhl уже работает на визитке и столярке — будет перекличка.</div>
+      <span class="pill">риск: похоже на наши прошлые сайты</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="dirnum">04 · Структура</div>
+  <h2>Карта страницы — ритм тёмное/светлое</h2>
+  <p class="desc">Главная = одна длинная история. Тёмные полосы — «кино», светлые — «бумага». Так выглядит ритм сверху вниз:</p>
+  <div class="map">
+    <div class="band d"><span class="n">01</span><div><b>Hero — ночь</b> <span>· полноэкранное макро-видео/фото налива, имя, часы, CTA WhatsApp</span></div></div>
+    <div class="band l"><span class="n">02</span><div><b>Меню</b> <span>· editorial-линейки с фото, ₪, фильтры и диет-метки — вместо PDF</span></div></div>
+    <div class="band d"><span class="n">03</span><div><b>Интерлюдия</b> <span>· цитата гостя/прессы на весь экран, кадр зала за ней</span></div></div>
+    <div class="band l"><span class="n">04</span><div><b>Заказ с собой</b> <span>· корзина → время → мок-оплата Bit / карта / Apple Pay</span></div></div>
+    <div class="band d"><span class="n">05</span><div><b>Пространство</b> <span>· scroll-сцены: 3–4 кадра кафе сменяются, как проход по залу</span></div></div>
+    <div class="band l"><span class="n">06</span><div><b>Бронь стола</b> <span>· дата → слоты → имя/телефон → подтверждение в WhatsApp</span></div></div>
+    <div class="band l"><span class="n">07</span><div><b>Лояльность</b> <span>· тёмная wallet-карта штампов 5/6 на светлом фоне + кофе-подписка</span></div></div>
+    <div class="band d"><span class="n">08</span><div><b>Финал</b> <span>· часы + карта + кашрут/шаббат-бейдж, Instagram-сетка, footer</span></div></div>
+  </div>
+  <p class="desc" style="margin-top:14px">Функциональное ядро из ресёрча остаётся как было: интерактивное меню, самовывоз, бронь, лояльность, декларация доступности (IS 5568), JSON-LD, три языка + RTL.</p>
+</section>
+
+<section>
+  <div class="dirnum">05 · Движение</div>
+  <h2>Моушн — «медленное кино», не аттракцион</h2>
+  <p class="desc">Твоя «крутая механика» живёт в тёмных главах: при скролле кадры зала плавно сменяются (сцены, как у Roastery, но легче), цитаты проявляются из темноты, буквы hero встают с лёгким каскадом. Светлые главы — спокойные: мягкие reveal по нашему стандарту (re-trigger + failsafe). Всё с motion-reduce и без скролл-джека — RTL-безопасно.</p>
+</section>
+
+<section>
+  <div class="dirnum">06 · Имя</div>
+  <h2>Имя кафе — три кандидата</h2>
+  <div class="names">
+    <div class="name"><div class="he">שָׁחוֹר</div><div class="lat">Shachor · «Чёрный»</div><p>Чёрный кофе, тёмные главы сайта, вечерний Яффо — имя и есть концепция. Коротко, дерзко, легко запомнить на всех языках. <b>Мой фаворит</b> — в превью выше подставлено оно.</p></div>
+    <div class="name"><div class="he">בּוֹץ</div><div class="lat">Botz · «ботц», кофе по-израильски</div><p>Локальный сленг (кофе «в грязь»), тёплый юмор, очень по-израильски. Чуть более «домашнее», меньше люкса.</p></div>
+    <div class="name"><div class="he">פֶּרֶק</div><div class="lat">Perek · «Глава»</div><p>Литературное — под editorial-вайб: сайт из «глав», меню из «глав», кафе как место, где читают и сидят с ноутом. Тоньше, но нужно объяснять.</p></div>
+  </div>
+</section>
+
+<footer>
+  <div class="final">
+    <h3>Что мне нужно от тебя — 4 коротких ответа</h3>
+    <ol>
+      <li><b>Вайб в целом</b> (превью трёх глав сверху): да / не то?</li>
+      <li><b>Акцент:</b> медь (А) или вино (Б)?</li>
+      <li><b>Шрифты:</b> пара 1 (рекомендую) или пара 2?</li>
+      <li><b>Имя:</b> Shachor / Botz / Perek — или своё?</li>
+    </ol>
+    <p style="margin-top:10px;color:var(--muted);font-size:14.5px">После ответов — рисуем макеты экранов (там же спрошу, каким инструментом: Claude Design или Stitch), и только потом код.</p>
+  </div>
+</footer>
+
+</div>
+</body>
+</html>
