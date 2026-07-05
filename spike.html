@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Спайк — киноплёнка кофе</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=David+Libre:wght@500;700&family=Piazzolla:ital,opsz,wght@0,8..30,400..700;1,8..30,400..700&family=Rubik:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --espresso:#131010; --dark-surface:#1d1815; --foam:#efe7db; --dark-line:#352d26;
+    --paper:#faf8f4; --ink:#191512; --light-line:#e4ded2; --copper:#c2502f; --muted:#a2968a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:auto}
+  body{background:var(--espresso);color:var(--foam);font-family:Rubik,-apple-system,sans-serif;font-weight:300}
+
+  /* ── плёнка ── */
+  #film,#poster{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+  #film{display:block}
+  #poster{object-fit:cover;transition:opacity .6s ease}
+  #poster.hide{opacity:0}
+
+  /* ── контент поверх ── */
+  main{position:relative;z-index:1}
+  .chapter{position:relative}
+  .sticky{position:sticky;top:0;height:100svh;display:grid;place-items:center;text-align:center;padding:24px}
+
+  .hero-inner .eyebrow{color:var(--copper);font-size:12px;letter-spacing:.34em;text-transform:uppercase;font-weight:500}
+  .hero-inner h1{font-family:"David Libre",serif;font-weight:700;font-size:clamp(64px,17vw,150px);line-height:1.02;direction:rtl;color:var(--foam);text-shadow:0 2px 40px rgba(0,0,0,.55)}
+  .hero-inner .sub{margin-top:10px;color:#c9bba9;font-size:15.5px;text-shadow:0 1px 18px rgba(0,0,0,.6)}
+  .hint{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:var(--muted);font-size:13px;letter-spacing:.12em;text-transform:uppercase;animation:bob 2.2s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0);opacity:.75}50%{transform:translateY(7px);opacity:1}}
+  .fade{transition:opacity .5s ease}
+
+  .quote-inner p{font-family:Piazzolla,serif;font-style:italic;font-size:clamp(22px,5.5vw,34px);line-height:1.35;max-width:22ch;color:var(--foam);text-shadow:0 2px 34px rgba(0,0,0,.6)}
+  .quote-inner cite{display:block;margin-top:16px;font-family:Rubik;font-style:normal;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--copper)}
+
+  /* светлый лист */
+  .sheet{position:relative;background:var(--paper);color:var(--ink);box-shadow:0 -30px 60px rgba(0,0,0,.35),0 30px 60px rgba(0,0,0,.35)}
+  .sheet .in{max-width:680px;margin:0 auto;padding:64px 22px 72px}
+  .kicker{color:var(--copper);font-weight:600;font-size:12px;letter-spacing:.22em;text-transform:uppercase}
+  .sheet h2{font-family:Piazzolla,serif;font-weight:600;font-size:clamp(26px,6vw,38px);margin-top:8px;line-height:1.2}
+  .sheet .note{color:#7a6d5f;font-size:15px;margin-top:10px;max-width:52ch}
+  .row{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--light-line);padding:14px 0;font-size:15.5px}
+  .row .price{font-variant-numeric:tabular-nums;color:var(--copper);font-weight:600;white-space:nowrap}
+  .row .nm b{font-weight:600}
+  .row .nm span{display:block;color:#7a6d5f;font-size:13px;font-weight:300}
+  .rows{margin-top:26px}
+
+  .finale{background:var(--paper);color:var(--ink)}
+  .finale .in{max-width:680px;margin:0 auto;padding:64px 22px 90px}
+  .finale h2{font-family:Piazzolla,serif;font-weight:600;font-size:clamp(24px,5.5vw,34px);line-height:1.25}
+  .finale ol{padding-inline-start:22px;margin-top:16px;font-size:15.5px}
+  .finale li{margin:8px 0}
+  .finale .tag{display:inline-block;border:1px solid var(--light-line);border-radius:999px;padding:3px 12px;font-size:12.5px;color:#7a6d5f;margin-top:18px}
+
+  @media (prefers-reduced-motion: reduce){
+    .hint{animation:none}
+  }
+</style>
+</head>
+<body>
+
+<img id="poster" src="frames/poster.jpg" alt="Кофе наливается в тёмную кружку" fetchpriority="high">
+<canvas id="film" aria-hidden="true"></canvas>
+
+<main>
+  <!-- Глава 1: hero, плёнка = налив -->
+  <section class="chapter" style="height:260svh">
+    <div class="sticky">
+      <div class="hero-inner fade" id="heroTxt">
+        <div class="eyebrow">Jaffa · יפו · спайк-прототип</div>
+        <h1>שָׁחוֹר</h1>
+        <div class="sub">крути вниз — кофе льётся, пока ты листаешь</div>
+      </div>
+      <div class="hint" id="hint">Скролль ↓</div>
+    </div>
+  </section>
+
+  <!-- Светлый лист поверх плёнки -->
+  <section class="sheet">
+    <div class="in">
+      <div class="kicker">Лист бумаги · תפריט</div>
+      <h2>А это — светлая глава</h2>
+      <p class="note">Обычная секция (меню, заказ, бронь) выезжает ПОВЕРХ плёнки, как лист бумаги поверх кино. Кино за ней продолжает идти — увидишь на выходе снизу.</p>
+      <div class="rows">
+        <div class="row"><div class="nm"><b>Эспрессо / אספרסו</b><span>дабл, локальная обжарка</span></div><div class="price">₪ 10</div></div>
+        <div class="row"><div class="nm"><b>Флэт уайт / פלאט וייט</b><span>двойная закладка</span></div><div class="price">₪ 16</div></div>
+        <div class="row"><div class="nm"><b>Мафин с тахиной</b><span>печём утром</span></div><div class="price">₪ 12</div></div>
+        <div class="row"><div class="nm"><b>Холодный ботц</b><span>лето, лёд, Яффо</span></div><div class="price">₪ 13</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Глава 2: плёнка продолжается — чашка наполняется -->
+  <section class="chapter" style="height:240svh">
+    <div class="sticky">
+      <div class="quote-inner fade" id="quoteTxt" style="opacity:0">
+        <p>«Приходишь за кофе — остаёшься до темноты»</p>
+        <cite>гость · Google Reviews</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- Финал: вопросы -->
+  <section class="finale">
+    <div class="in">
+      <div class="kicker">Гейт спайка</div>
+      <h2>Два вопроса</h2>
+      <ol>
+        <li><b>Плавно?</b> Кофе движется без рывков, телефон не тормозит?</li>
+        <li><b>Реалистично?</b> Это настоящая съёмка (Pexels), которой управляет твой палец — такого уровня будет вся плёнка.</li>
+      </ol>
+      <p class="note" style="margin-top:14px">Если «да-да» — делаю сториборд всей плёнки и переходим к макетам. Если что-то не так — скажи, что именно: скорость, рывки, сюжет, свет.</p>
+      <span class="tag">кадров: 90 (моб. 54) · вес: 2.7 МБ (моб. 0.9)</span>
+    </div>
+  </section>
+</main>
+
+<script>
+(function(){
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var poster = document.getElementById('poster');
+  var canvas = document.getElementById('film');
+  if (reduced) { canvas.remove(); return; } // постер остаётся статичным фоном
+
+  var isMobile = matchMedia('(max-width: 768px)').matches;
+  var N = isMobile ? 54 : 90;
+  var DIR = isMobile ? 'frames/m/' : 'frames/d/';
+  var ctx = canvas.getContext('2d');
+  var frames = new Array(N);
+  var loadedCount = 0;
+  var cur = 0, target = 0, started = false;
+
+  var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+  function resize(){
+    canvas.width = Math.round(innerWidth * dpr);
+    canvas.height = Math.round(innerHeight * dpr);
+  }
+  resize();
+  addEventListener('resize', resize);
+
+  function pad(n){ return String(n+1).padStart(3,'0'); }
+
+  // грузим пачками по 8, от начала к концу
+  var next = 0, inFlight = 0;
+  function pump(){
+    while (inFlight < 8 && next < N) {
+      (function(i){
+        var im = new Image();
+        im.onload = im.onerror = function(){
+          frames[i] = im.complete && im.naturalWidth ? im : null;
+          loadedCount++; inFlight--;
+          if (!started && loadedCount >= 12) { started = true; poster.classList.add('hide'); }
+          pump();
+        };
+        im.src = DIR + 'f_' + pad(i) + '.webp';
+      })(next);
+      next++; inFlight++;
+    }
+  }
+  pump();
+
+  function nearestLoaded(i){
+    if (frames[i]) return frames[i];
+    for (var d = 1; d < N; d++) {
+      if (i-d >= 0 && frames[i-d]) return frames[i-d];
+      if (i+d < N && frames[i+d]) return frames[i+d];
+    }
+    return null;
+  }
+
+  function drawCover(im){
+    var cw = canvas.width, ch = canvas.height;
+    var ir = im.naturalWidth / im.naturalHeight, cr = cw / ch;
+    var w, h;
+    if (ir > cr) { h = ch; w = h * ir; } else { w = cw; h = w / ir; }
+    ctx.drawImage(im, (cw - w) / 2, (ch - h) / 2, w, h);
+  }
+
+  var heroTxt = document.getElementById('heroTxt');
+  var hint = document.getElementById('hint');
+  var quoteTxt = document.getElementById('quoteTxt');
+
+  function loop(){
+    var max = document.documentElement.scrollHeight - innerHeight;
+    var p = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
+    target = p * (N - 1);
+    cur += (target - cur) * 0.16;
+    if (Math.abs(target - cur) < 0.02) cur = target;
+    var im = nearestLoaded(Math.round(cur));
+    if (im) drawCover(im);
+
+    // текстовые появления/уходы
+    var fadeOut = Math.min(1, p / 0.10);            // hero-текст тает к 10% прокрутки
+    heroTxt.style.opacity = String(1 - fadeOut);
+    hint.style.opacity = String(1 - Math.min(1, p / 0.05));
+    var q = (p - 0.62) / 0.10;                      // цитата проявляется на 62–72%
+    quoteTxt.style.opacity = String(Math.min(1, Math.max(0, q)));
+
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
