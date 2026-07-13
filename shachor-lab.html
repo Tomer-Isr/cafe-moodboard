@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>שחור · לאב</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=David+Libre:wght@400;500;700&family=Piazzolla:ital,opsz,wght@0,8..30,400..700;1,8..30,400..600&family=Rubik:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --espresso:#131010; --surface:#1d1815; --foam:#efe7db; --dark-line:#352d26;
+    --paper:#faf8f4; --ink:#191512; --light-line:#e4ded2; --wine:#b3382c; --muted:#a2968a;
+    --paper-dim:#7a6d5f;
+    --serif:"David Libre",Georgia,serif; --accent:"Piazzolla",Georgia,serif; --sans:"Rubik",-apple-system,system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:auto;-webkit-text-size-adjust:100%}
+  body{background:var(--espresso);color:var(--foam);font-family:var(--sans);font-weight:300;overflow-x:hidden}
+
+  /* ── фоновая плёнка ── */
+  #poster,#film{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+  #poster{object-fit:cover;transition:opacity .7s ease}
+  #poster.hide{opacity:0}
+  #film{display:block}
+
+  /* контент поверх плёнки */
+  main{position:relative;z-index:1}
+  section{position:relative}
+
+  /* ── шапка ── */
+  .bar{position:absolute;inset-inline:0;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;
+       padding:clamp(16px,4vw,26px) clamp(18px,5vw,44px)}
+  .bar .brand{font-family:var(--serif);font-weight:700;font-size:clamp(20px,5vw,26px);color:var(--foam);letter-spacing:.02em}
+  .bar nav{display:none;gap:clamp(18px,3vw,34px)}
+  .bar nav a{color:var(--foam);text-decoration:none;font-size:14px;font-weight:400;opacity:.9;letter-spacing:.02em}
+  .bar nav a:hover{opacity:1;color:var(--wine)}
+  @media(min-width:760px){ .bar nav{display:flex} }
+
+  /* ── HERO ── */
+  .hero{min-height:100svh;display:grid;grid-template-rows:1fr auto;align-items:center;
+        text-align:center;padding:88px clamp(20px,6vw,40px) 0;overflow:hidden}
+  /* скримы под читаемость поверх меняющегося кадра */
+  .hero::before{content:"";position:absolute;inset-inline:0;top:0;height:34%;
+        background:linear-gradient(to bottom,rgba(19,16,16,.72),transparent);pointer-events:none;z-index:1}
+  .hero::after{content:"";position:absolute;inset-inline:0;bottom:0;height:46%;
+        background:linear-gradient(to top,rgba(19,16,16,.82),transparent);pointer-events:none;z-index:1}
+  .hero-core{position:relative;z-index:2;align-self:center;display:flex;flex-direction:column;align-items:center;gap:clamp(10px,2.2vw,16px)}
+  .eyebrow{color:var(--wine);font-size:clamp(11px,2.6vw,13px);font-weight:500;letter-spacing:.34em;text-transform:uppercase}
+  .hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(88px,32vw,240px);line-height:.92;color:var(--foam);
+        text-shadow:0 2px 46px rgba(0,0,0,.6);letter-spacing:.01em}
+  .hero .sub{font-family:var(--accent);font-style:italic;font-size:clamp(17px,4.6vw,26px);color:#e7dccb;text-shadow:0 1px 20px rgba(0,0,0,.7)}
+  .hero .meta{font-size:clamp(12.5px,3.2vw,14px);color:#d4c7b6;letter-spacing:.04em;text-shadow:0 1px 14px rgba(0,0,0,.8)}
+  .hero-foot{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:18px;padding-bottom:clamp(26px,7vw,54px)}
+  .cta{display:inline-flex;align-items:center;gap:10px;background:var(--wine);color:#fff;font-family:var(--sans);font-weight:500;
+       font-size:clamp(14px,3.6vw,15px);letter-spacing:.03em;padding:14px 30px;border-radius:2px;text-decoration:none;
+       box-shadow:0 10px 34px rgba(0,0,0,.4);transition:transform .5s cubic-bezier(.22,1,.36,1),background .3s}
+  .cta:hover{background:#c33f31;transform:translateY(-2px)}
+  .cta .arr{font-size:1.05em;line-height:1}
+  .scroll-hint{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+  .scroll-hint span{display:inline-block;animation:bob 2.3s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+  /* ── бегущая вино-строка ── */
+  .marquee{position:relative;z-index:2;background:var(--wine);color:#fff;overflow:hidden;white-space:nowrap;
+        font-size:13px;letter-spacing:.05em;padding:11px 0}
+  .marquee .track{display:inline-block;animation:slide 26s linear infinite}
+  .marquee .track span{margin:0 22px}
+  @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ── светлый «лист» ── */
+  .sheet{background:var(--paper);color:var(--ink);box-shadow:0 -34px 60px rgba(0,0,0,.34),0 30px 60px rgba(0,0,0,.34)}
+  .sheet .in,.dark .in{max-width:760px;margin:0 auto;padding:clamp(56px,10vw,90px) clamp(20px,6vw,32px)}
+  .kicker{color:var(--wine);font-weight:600;font-size:12px;letter-spacing:.22em;text-transform:uppercase}
+  .sheet h2,.dark h2{font-family:var(--accent);font-weight:600;font-size:clamp(28px,7vw,44px);margin-top:10px;line-height:1.15}
+  .sheet .lead{color:var(--paper-dim);font-size:clamp(15px,3.6vw,16px);margin-top:12px;max-width:52ch;line-height:1.55}
+  .row{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--light-line);padding:16px 0}
+  .row:last-child{border-bottom:0}
+  .row .nm b{font-weight:600;font-size:16px}
+  .row .nm span{display:block;color:var(--paper-dim);font-size:13px;font-weight:300;margin-top:2px}
+  .row .price{font-variant-numeric:tabular-nums;color:var(--wine);font-weight:600;white-space:nowrap;font-size:17px}
+  .rows{margin-top:30px}
+
+  /* ── тёмная глава (плёнка проступает) ── */
+  .dark{background:transparent}
+  .dark::before{content:"";position:absolute;inset:0;background:rgba(19,16,16,.42);pointer-events:none}
+  .dark .in{position:relative;z-index:1}
+  .dark h2{color:var(--foam)}
+  .dark .lead{color:#ccbfae;font-size:clamp(15px,3.6vw,16px);margin-top:12px;max-width:52ch;line-height:1.6;
+        text-shadow:0 1px 16px rgba(0,0,0,.6)}
+  .dark .kicker{color:var(--wine)}
+
+  /* черновой бейдж */
+  .wip{display:inline-block;margin-top:20px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+       border:1px solid currentColor;border-radius:999px;padding:4px 12px;opacity:.5}
+
+  footer{background:var(--surface);color:var(--foam);position:relative;z-index:1}
+  footer .in{max-width:760px;margin:0 auto;padding:clamp(48px,9vw,72px) clamp(20px,6vw,32px)}
+  footer .brand{font-family:var(--serif);font-weight:700;font-size:34px}
+  footer .note{color:#b7a996;font-size:13px;margin-top:14px;line-height:1.6}
+  footer .disc{color:#8a7c6d;font-size:11px;margin-top:22px}
+
+  @media(prefers-reduced-motion:reduce){
+    .scroll-hint span,.marquee .track{animation:none}
+  }
+</style>
+</head>
+<body>
+
+<img id="poster" src="frames/poster.jpg" alt="כוס ריקה על פולי קפה" fetchpriority="high">
+<canvas id="film" aria-hidden="true"></canvas>
+
+<main>
+  <!-- ═══ HERO ═══ -->
+  <section class="hero" id="top">
+    <header class="bar">
+      <div class="brand">שחור</div>
+      <nav>
+        <a href="#menu">תפריט</a>
+        <a href="#place">המקום</a>
+        <a href="#booking">שולחן</a>
+        <a href="#menu">הזמנה</a>
+      </nav>
+    </header>
+
+    <div class="hero-core">
+      <div class="eyebrow">יפו · EST. 2021</div>
+      <h1>שָׁחוֹר</h1>
+      <div class="sub">קפה בלי מיותר.</div>
+      <div class="meta">רחוב רבי חנינא · יפו · 08:00–23:00</div>
+    </div>
+
+    <div class="hero-foot">
+      <a class="cta" href="#menu"><span class="arr">←</span> להזמנה</a>
+      <div class="scroll-hint"><span>גלול · הקפה יימזג</span></div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="track">
+      <span>קלייה מקומית ביפו</span><span>·</span><span>אספרסו</span><span>·</span><span>קולד ברו</span><span>·</span><span>קפה בלי מיותר</span><span>·</span>
+      <span>קלייה מקומית ביפו</span><span>·</span><span>אספרסו</span><span>·</span><span>קולד ברו</span><span>·</span><span>קפה בלי מיותר</span><span>·</span>
+    </div>
+  </div>
+
+  <!-- ═══ МЕНЮ (светлый лист) — наметка ═══ -->
+  <section class="sheet" id="menu">
+    <div class="in">
+      <div class="kicker">התפריט</div>
+      <h2>קפה, ומעט סביבו</h2>
+      <p class="lead">קלייה של הבית, מתחלפת. מה שיש — יש טוב. המחירים לדוגמה, לכיול בשלב מאוחר.</p>
+      <div class="rows">
+        <div class="row"><div class="nm"><b>אספרסו</b><span>בודד או כפול</span></div><div class="price">₪12</div></div>
+        <div class="row"><div class="nm"><b>מקיאטו</b><span>אספרסו וכתם חלב מוקצף</span></div><div class="price">₪13</div></div>
+        <div class="row"><div class="nm"><b>קפה הפוך</b><span>חלב טרי או שיבולת שועל (₪2+)</span></div><div class="price">₪15</div></div>
+        <div class="row"><div class="nm"><b>פילטר היום</b><span>מזיגה ידנית, זן מתחלף</span></div><div class="price">₪18</div></div>
+      </div>
+      <span class="wip">חלק זה — טיוטה</span>
+    </div>
+  </section>
+
+  <!-- ═══ МЕСТО (тёмная глава — плёнка видна) — наметка ═══ -->
+  <section class="dark" id="place">
+    <div class="in">
+      <div class="kicker">המקום</div>
+      <h2>בסמטה ביפו העתיקה</h2>
+      <p class="lead">שחור נפתח ב־2021 בסמטה ביפו העתיקה. מיקרו־קלייה אחת, מכונה אחת, בר בטון אחד. אנחנו קולים כל שבוע בכמויות קטנות, מגישים בלי סירופים ובלי קיצורי דרך — רק קפה, נמוך, ונים במרחק שלוש דקות.</p>
+      <span class="wip">חלק זה — טיוטה</span>
+    </div>
+  </section>
+
+  <!-- ═══ БРОНЬ (светлый лист) — наметка ═══ -->
+  <section class="sheet" id="booking">
+    <div class="in">
+      <div class="kicker">שולחן</div>
+      <h2>לשמור פינה</h2>
+      <p class="lead">חמישה צעדים קצרים, ואישור מגיע לוואטסאפ. כאן ייכנס אשף ההזמנה בשלב הבא.</p>
+      <span class="wip">חלק זה — טיוטה</span>
+    </div>
+  </section>
+
+  <footer>
+    <div class="in">
+      <div class="brand">שחור</div>
+      <p class="note">רחוב רבי חנינא, יפו · 08:00–23:00 · קלייה מקומית מ־2021</p>
+      <p class="disc">* אתר הדגמה. כל התמונות והפרטים להמחשה בלבד.</p>
+    </div>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var poster = document.getElementById('poster');
+  var canvas = document.getElementById('film');
+  if (reduced){ canvas.remove(); return; }
+
+  var isMobile = matchMedia('(max-width:768px)').matches;
+  var N = isMobile ? 54 : 90;
+  var DIR = isMobile ? 'frames/m/' : 'frames/d/';
+  var ctx = canvas.getContext('2d');
+  var frames = new Array(N);
+  var loadedCount = 0, cur = 0, target = 0, posterHidden = false;
+
+  var emptyImg = new Image(), emptyReady = false;
+  emptyImg.onload = function(){ emptyReady = true; };
+  emptyImg.src = DIR + 'empty.webp';
+
+  var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+  function resize(){ canvas.width = Math.round(innerWidth*dpr); canvas.height = Math.round(innerHeight*dpr); }
+  resize(); addEventListener('resize', resize);
+
+  function pad(n){ return String(n+1).padStart(3,'0'); }
+  var next = 0, inFlight = 0;
+  function pump(){
+    while (inFlight < 8 && next < N){
+      (function(i){
+        var im = new Image();
+        im.onload = im.onerror = function(){ frames[i] = im.complete && im.naturalWidth ? im : null; loadedCount++; inFlight--; pump(); };
+        im.src = DIR + 'f_' + pad(i) + '.webp';
+      })(next);
+      next++; inFlight++;
+    }
+  }
+  pump();
+
+  function nearestLoaded(i){
+    if (frames[i]) return frames[i];
+    for (var d=1; d<N; d++){ if (i-d>=0 && frames[i-d]) return frames[i-d]; if (i+d<N && frames[i+d]) return frames[i+d]; }
+    return null;
+  }
+  function drawCover(im){
+    var cw=canvas.width, ch=canvas.height, ir=im.naturalWidth/im.naturalHeight, cr=cw/ch, w,h;
+    if (ir>cr){ h=ch; w=h*ir; } else { w=cw; h=w/ir; }
+    ctx.drawImage(im,(cw-w)/2,(ch-h)/2,w,h);
+  }
+  function clamp01(v){ return v<0?0:v>1?1:v; }
+
+  function loop(){
+    var ih = innerHeight, y = scrollY;
+    var maxY = document.documentElement.scrollHeight - ih;
+    var pour = maxY > 0 ? clamp01(y / (maxY * 0.92)) : 0;
+
+    if (pour <= 0 && emptyReady){ drawCover(emptyImg); cur = target = 0; }
+    else {
+      target = pour * (N-1);
+      cur += (target - cur) * 0.16;
+      if (Math.abs(target-cur) < 0.02) cur = target;
+      var im = nearestLoaded(Math.round(cur));
+      if (im) drawCover(im); else if (emptyReady) drawCover(emptyImg);
+    }
+    if (!posterHidden && (emptyReady || loadedCount >= 8)){ posterHidden = true; poster.classList.add('hide'); }
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
