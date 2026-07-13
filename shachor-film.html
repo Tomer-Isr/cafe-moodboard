@@ -335,7 +335,13 @@ document.addEventListener('DOMContentLoaded', async function() {
         total += h;
         passed += Math.min(Math.max(refY - top, 0), h);
       }
-      var pour = total > 0 ? clamp01(passed / total) : 0;
+      var pour;
+      if (total > 0){ pour = clamp01(passed / total); }
+      else { // подстраховка: тёмные секции недоступны — глобальный прогресс скролла
+        var maxY = document.documentElement.scrollHeight - ih;
+        pour = maxY > 0 ? clamp01(y / (maxY * 0.9)) : 0;
+      }
+      window.__filmDiag = { pour:+pour.toFixed(3), total:Math.round(total), dsN:darkSecs.length, loaded:loadedCount, cur:+cur.toFixed(1), emptyReady:emptyReady };
 
       if (pour <= 0 && emptyReady){ drawCover(emptyImg); cur = target = 0; }
       else {
