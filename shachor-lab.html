@@ -240,7 +240,12 @@
   function loop(){
     var ih = innerHeight, y = scrollY;
     var maxY = document.documentElement.scrollHeight - ih;
-    var pour = maxY > 0 ? clamp01(y / (maxY * 0.92)) : 0;
+    // Плавный разгон: короткая пауза (кружка пустая) в самом верху, затем ease-in —
+    // кофе трогается медленно и мягко ускоряется, без резкого старта.
+    var startY = ih * 0.4;                       // пауза ~полэкрана — любуемся пустой кружкой
+    var endY   = maxY * 0.9;                      // полная чашка — почти к концу
+    var p = endY > startY ? clamp01((y - startY) / (endY - startY)) : 0;
+    var pour = Math.pow(p, 2.1);                  // ease-in: медленный старт, плавный разгон
 
     if (pour <= 0 && emptyReady){ drawCover(emptyImg); cur = target = 0; }
     else {
