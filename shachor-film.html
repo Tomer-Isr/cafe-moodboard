@@ -324,24 +324,12 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     function loop(){
       var ih = innerHeight, y = scrollY;
-      // Налив распределён по ТЁМНЫМ секциям (кино видно только там). Кофе доливается,
-      // пока тёмная глава идёт через экран; под светлыми листами — пауза. Полная чашка
-      // достигается только в последней тёмной главе. Точка отсчёта — центр вьюпорта.
-      var refY = y + ih * 0.5;
-      var passed = 0, total = 0;
-      for (var k = 0; k < darkSecs.length; k++){
-        var r = darkSecs[k].getBoundingClientRect();
-        var top = r.top + y, h = r.height;
-        total += h;
-        passed += Math.min(Math.max(refY - top, 0), h);
-      }
-      var pour;
-      if (total > 0){ pour = clamp01(passed / total); }
-      else { // подстраховка: тёмные секции недоступны — глобальный прогресс скролла
-        var maxY = document.documentElement.scrollHeight - ih;
-        pour = maxY > 0 ? clamp01(y / (maxY * 0.9)) : 0;
-      }
-      window.__filmDiag = { pour:+pour.toFixed(3), total:Math.round(total), dsN:darkSecs.length, loaded:loadedCount, cur:+cur.toFixed(1), emptyReady:emptyReady };
+      // Налив по ГЛОБАЛЬНОМУ прогрессу скролла: кружка пустая вверху, наполняется по мере
+      // спуска, полная — к концу страницы (0.92, чтобы полная чашка успела показаться в
+      // последней тёмной главе, а не только в самом низу). Надёжно: не зависит от узлов DOM,
+      // которые React может пересоздать.
+      var maxY = document.documentElement.scrollHeight - ih;
+      var pour = maxY > 0 ? clamp01(y / (maxY * 0.92)) : 0;
 
       if (pour <= 0 && emptyReady){ drawCover(emptyImg); cur = target = 0; }
       else {
